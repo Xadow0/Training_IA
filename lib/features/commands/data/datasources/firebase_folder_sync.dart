@@ -11,8 +11,16 @@ import '../models/command_folder_model.dart';
 /// - Sincronización de preferencias de comandos (groupSystemCommands)
 /// - Mantener consistencia entre local y remoto
 class FirebaseFolderSyncService {
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  late final FirebaseFirestore _firestore;
+  late final FirebaseAuth _auth;
+
+  FirebaseFolderSyncService({
+    FirebaseFirestore? firestore,
+    FirebaseAuth? auth,
+  }) {
+    _firestore = firestore ?? FirebaseFirestore.instance;
+    _auth = auth ?? FirebaseAuth.instance;
+  }
   
   static const String _foldersCollection = 'command_folders';
   static const String _preferencesDoc = 'command_preferences';

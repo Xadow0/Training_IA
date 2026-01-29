@@ -88,7 +88,7 @@ class SecureStorageService {
     }
   }
 
-  /// Eliminar todos los valores (usar con precaución)
+  /// Eliminar todos los valores guardados
   Future<void> deleteAll() async {
     try {
       await _storage.deleteAll();

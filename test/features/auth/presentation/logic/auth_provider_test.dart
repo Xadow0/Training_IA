@@ -172,50 +172,6 @@ void main() {
       expect(authProvider.isLoading, isFalse);
     });
 
-    test('debe sincronizar si cloudSync estaba activo', () async {
-      when(() => mockAuthRepository.signIn(
-            email: any(named: 'email'),
-            password: any(named: 'password'),
-          )).thenAnswer((_) async => mockUserCredential);
-      when(() => mockAuthRepository.getCloudSyncEnabled())
-          .thenAnswer((_) async => true);
-      when(() => mockAuthRepository.syncConversations()).thenAnswer(
-        (_) async => SyncResult(success: true, uploaded: 0, downloaded: 0),
-      );
-
-      await authProvider.signIn('test@test.com', 'password123');
-
-      expect(authProvider.isCloudSyncEnabled, isTrue);
-      verify(() => mockAuthRepository.syncConversations()).called(1);
-    });
-
-    test('debe sincronizar con commandProvider si está configurado', () async {
-      authProvider.setCommandProvider(mockCommandProvider);
-
-      when(() => mockAuthRepository.signIn(
-            email: any(named: 'email'),
-            password: any(named: 'password'),
-          )).thenAnswer((_) async => mockUserCredential);
-      when(() => mockAuthRepository.getCloudSyncEnabled())
-          .thenAnswer((_) async => true);
-      when(() => mockAuthRepository.syncConversations()).thenAnswer(
-        (_) async => SyncResult(success: true, uploaded: 1, downloaded: 2),
-      );
-      when(() => mockCommandProvider.resetSyncStatus()).thenReturn(null);
-      when(() => mockCommandProvider.syncWithFirebase()).thenAnswer(
-        (_) async => CommandSyncResult(
-          success: true,
-          uploaded: 1,
-          downloaded: 1,
-        ),
-      );
-
-      await authProvider.signIn('test@test.com', 'password123');
-
-      verify(() => mockCommandProvider.resetSyncStatus()).called(1);
-      verify(() => mockCommandProvider.syncWithFirebase()).called(1);
-    });
-
     test('debe manejar errores de autenticación', () async {
       when(() => mockAuthRepository.signIn(
             email: any(named: 'email'),

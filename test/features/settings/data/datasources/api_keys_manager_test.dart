@@ -1,23 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:chatbot_app/features/settings/data/datasources/api_keys_manager.dart';
 
-class ApiKeyStatus {
-  final bool hasKey;
-  final bool isUserKey;
-  final bool isUsingDefault;
-  final bool hasDefaultAvailable;
-
-  ApiKeyStatus({
-    required this.hasKey,
-    required this.isUserKey,
-    required this.isUsingDefault,
-    required this.hasDefaultAvailable,
-  });
-}
-// ============================================================================
-// FIN DE LA COPIA TEMPORAL
-// ============================================================================
-
 void main() {
   late ApiKeysManager apiKeysManager;
 
@@ -196,13 +179,13 @@ void main() {
   group('ApiKeysManager - validateOpenAIKey', () {
     group('Casos válidos', () {
       test('debe aceptar key válida con prefijo sk- de 40 caracteres', () {
-        final key = 'sk-' + 'A' * 37;
+        final key = 'sk-${'A' * 37}';
         expect(key.length, equals(40));
         expect(apiKeysManager.validateOpenAIKey(key), isTrue);
       });
 
       test('debe aceptar key válida de más de 40 caracteres', () {
-        final key = 'sk-' + 'A' * 50;
+        final key = 'sk-${'A' * 50}';
         expect(apiKeysManager.validateOpenAIKey(key), isTrue);
       });
 
@@ -250,7 +233,7 @@ void main() {
       });
 
       test('debe rechazar key de 39 caracteres (límite inferior)', () {
-        final key = 'sk-' + 'A' * 36;
+        final key = 'sk-${'A' * 36}';
         expect(key.length, equals(39));
         expect(apiKeysManager.validateOpenAIKey(key), isFalse);
       });
@@ -308,23 +291,23 @@ void main() {
     group('Casos límite', () {
 
       test('debe aceptar key muy larga (100 caracteres)', () {
-        final key = 'sk-' + 'A' * 97;
+        final key = 'sk-${'A' * 97}';
         expect(key.length, equals(100));
         expect(apiKeysManager.validateOpenAIKey(key), isTrue);
       });
 
       test('debe aceptar key muy larga (200 caracteres)', () {
-        final key = 'sk-' + 'A' * 197;
+        final key = 'sk-${'A' * 197}';
         expect(apiKeysManager.validateOpenAIKey(key), isTrue);
       });
 
       test('debe aceptar key solo con guiones bajos después de sk-', () {
-        final key = 'sk-' + '_' * 37;
+        final key = 'sk-${'_' * 37}';
         expect(apiKeysManager.validateOpenAIKey(key), isTrue);
       });
 
       test('debe aceptar key solo con guiones medios después de sk-', () {
-        final key = 'sk-' + '-' * 37;
+        final key = 'sk-${'-' * 37}';
         expect(apiKeysManager.validateOpenAIKey(key), isTrue);
       });
     });
@@ -501,9 +484,9 @@ void main() {
           '',
           'short',
           'sk-short',
-          'sk-' + 'A' * 36,
-          'sk-' + 'A' * 37,
-          'sk-' + 'A' * 50,
+          'sk-${'A' * 36}',
+          'sk-${'A' * 37}',
+          'sk-${'A' * 50}',
           'sk-abcdefghijklmnopqrstuvwxyz1234567890AB',
           'no-prefix-abcdefghijklmnopqrstuvwxyz12345',
           'SK-UPPERCASE-abcdefghijklmnopqrstuvwxyz',

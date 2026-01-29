@@ -4,8 +4,16 @@ import 'package:flutter/foundation.dart';
 import '../models/command_model.dart';
 
 class FirebaseCommandSyncService {
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  late final FirebaseFirestore _firestore;
+  late final FirebaseAuth _auth;
+
+  FirebaseCommandSyncService({
+    FirebaseFirestore? firestore,
+    FirebaseAuth? auth,
+  }) {
+    _firestore = firestore ?? FirebaseFirestore.instance;
+    _auth = auth ?? FirebaseAuth.instance;
+  }
   
   static const String _commandsCollection = 'user_commands';
   

@@ -24,7 +24,7 @@ import 'secure_storage_service.dart';
 /// - Esto permite descifrar conversaciones en cualquier dispositivo de forma transparente
 class ConversationEncryptionService {
   final SecureStorageService _secureStorage;
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseAuth _auth;
   
   static const String _saltKey = 'encryption_salt';
   static const String _saltVersionKey = 'encryption_salt_version';
@@ -34,7 +34,10 @@ class ConversationEncryptionService {
   encrypt.Key? _cachedKey;
   String? _cachedUserId;
 
-  ConversationEncryptionService(this._secureStorage);
+  ConversationEncryptionService(
+    this._secureStorage, {
+    FirebaseAuth? auth,
+  }) : _auth = auth ?? FirebaseAuth.instance;
 
   // ==========================================================================
   // GESTIÓN DE CLAVE DE CIFRADO
