@@ -108,6 +108,10 @@ El proyecto sigue una arquitectura limpia (**Clean Architecture**) para garantiz
         ```bash
         flutter run
         ```
+5.	**Para compilar el ejecutable final (Windows, .exe)**
+	```bash
+	$ flutter build windows --release
+	```
 
 ---
 
