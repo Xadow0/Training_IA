@@ -5,7 +5,7 @@ import '../../../../chat/data/datasources/remote/gemini_datasource.dart';
 import 'package:markdown_widget/markdown_widget.dart';
 import '../../../../chat/domain/entities/message_entity.dart';
 import '../../../../chat/domain/repositories/conversation_repository.dart';
-import 'package:provider/provider.dart';
+import '../../../../../core/di/injection_container.dart';
 
 class Module2Page extends StatefulWidget {
   const Module2Page({super.key});
@@ -21,7 +21,7 @@ class _Module2PageState extends State<Module2Page> {
   @override
   void initState() {
     super.initState();
-    _conversationRepository = Provider.of<IConversationRepository>(context, listen: false);
+    _conversationRepository = sl<IConversationRepository>();
   }
 
   void _nextPage() {
